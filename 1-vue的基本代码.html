@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>vue代码基本结构</title>
+	<link rel="stylesheet" href="">
+	<!-- 得提前加载vue.js -->
+	<script src="lib/vue-2.4.0.js"></script>
+</head>
+<body>
+	
+	<!-- view 视图 -->
+	<div id='app'>
+		<!-- 通过vue提供的指令，很方便地将数据渲染到页面上，不需要手动操作dom元素（前端类似vue的框架，不提倡我们手动操作dom元素，都是通过指令）-->
+		{{message}}
+	</div>
+
+	<script type="text/javascript">
+	// 这里的vm就是mvvm模式里面的vm（视图模型），它的作用相当于一个中间人，协调m(modele,模型)与v(view,视图)：将model中的数据绑定到view,view中的数据更新到model。vuejs就是通过这个中间人实现的数据双向绑定。
+	var vm = new Vue({
+		 //view 视图，对应到html，html部分就是view
+		 el:'#app',
+		 //model 模型
+		 data: {
+		 	message:'Hello Vue'
+		 }
+		})
+	</script>
+</body>
+</html>
