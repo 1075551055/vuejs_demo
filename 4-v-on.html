@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>v-on</title>
+	<link rel="stylesheet" href="">
+	<script src="lib/vue-2.4.0.js"></script>
+</head>
+<body>
+
+	<div id='app'>
+		<!-- v-on指令绑定事件，精简写法@,例如v-on:click -> @click -->
+		<input type="button" value="button" v-on:click='show'>
+	</div>
+	
+	<script type="text/javascript">
+		var app = new Vue({
+			el:'#app',
+			data:{
+				title:'mytile'
+			},
+			methods:{
+				show:function(){
+					alert('test');
+				}
+			}
+		})
+	</script>
+</body>
+</html>
