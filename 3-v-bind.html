@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>v-bind</title>
+	<link rel="stylesheet" href="">
+	<script src="lib/vue-2.4.0.js"></script>
+</head>
+<body>
+	<div id='app'>
+		<!-- v-bind是vue中提供绑定元素属性的指令，指令中可以执行合法的js表达式（其他指令也一样），title识别为data中的title -->
+		<a href="#" v-bind:title="title+321">test v-bind</a>
+		<!-- v-bind精简写法是":" -->
+		<a href="#" :title="title+'精简法'">test v-bind精简写法</a>
+	</div>
+	<script type="text/javascript">
+		var app = new Vue({
+			el:'#app',
+			data:{
+				title:'mytile'
+			}
+		})
+	</script>
+</body>
+</html>
