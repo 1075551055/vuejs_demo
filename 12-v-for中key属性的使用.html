@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>v-for中元素key属性的使用</title>
+	<link rel="stylesheet" href="">
+	<script src="lib/vue-2.4.0.js"></script>
+</head>
+<body>
+	
+	<div id="app">
+		<div>
+			<input type="text" name="" v-model:value="id">
+			<input type="text" name="" v-model:value="name">
+			<input type="button" name="" value="添加" @click="add">
+		</div>
+		<!-- key属性可以作为元素的唯一标识，如果没有唯一标识，假如选中了其中一个checkbox，那么每次添加元素的时候就会出现奇怪的问题 -->
+		<p v-for="item in list" :key="item.id">
+			<input type="checkbox" name="">{{item.name}}
+		</p>
+	</div>
+
+	<script type="text/javascript">
+		var app = new Vue({
+			el:'#app',
+			data:{
+				id: '',
+				name:'',
+				list:[
+				  {id: 1, name: '张三'},
+				  {id: 2, name: '李四'},
+				  {id: 3, name: '王五'},
+				]
+			},
+			methods:{
+				add:function(){
+					this.list.unshift({id:this.id, name:this.name})
+				}
+			}
+		})
+	</script>
+</body>
+</html>
