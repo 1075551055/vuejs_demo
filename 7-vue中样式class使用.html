@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>vue中样式使用</title>
+	<link rel="stylesheet" href="">
+	<script src="lib/vue-2.4.0.js"></script>
+	<style type="text/css" media="screen">
+		.red {
+			color: red;
+		}	
+
+		.thin {
+			font-weight: 200;
+		}
+
+		.active {
+			font-size: 20px;
+		}
+	</style>
+</head>
+<body>
+	<div id="app">
+		<!-- 原始用法 -->
+		<h1 class="red thin">hello vue</h1>
+		
+		<!-- vue中通过数组形式绑定样式,必须通过单引号或者双引号引起来，否则会当做data中的属性来看待，例如这里由'red'换成red，那么red会被看做是data中的red -->
+		<h1 :class="['red']">hello</h1>
+		<h1 :class="['thin','active']">hello</h1>
+		<!-- 通过json方式，true则表示使用该样式，false反之 -->
+		<h1 :class="['thin',{'active':true}]">hi</h1>
+		<!-- 通过对象方式，该方式与上面的json其实是一个意思 -->
+		<h1 :class="classObj">hi</h1>
+
+	</div>
+	<script type="text/javascript">
+		var app = new Vue({
+			el: '#app',
+			data: {
+				// 使不使用用单双引号都ok
+				classObj:{red: true, thin:true}
+			}
+		})
+	</script>
+</body>
+</html>
