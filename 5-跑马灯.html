@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>跑马灯</title>
+	<link rel="stylesheet" href="">
+	<script src="lib/vue-2.4.0.js"></script>
+</head>
+<body>
+	<div id='app'>
+		<input type="button" name="" value="start" @click="start">
+		<input type="button" name="" value="stop" @click="stop">
+		<h4 v-text='message'></h4>
+	</div>
+	<script type="text/javascript">
+		var app = new Vue({
+			el:'#app',
+			data:{
+				message: ' I am a winner ',
+				intervalId: null
+			},
+			methods:{
+				start:function(){
+					// 想要获取data上的数据，或者想在其他地方调用method，可以通过this获取，this指的是这里new出来的Vue实例
+					if(this.intervalId == null){
+						// js事件循环
+						this.intervalId = setInterval(() => {
+							console.log('start');
+							var startChar = this.message.substring(0, 1);
+							var endChar = this.message.substring(1);
+							// 会自动更新渲染到view，无需操作dom. 程序员只需要关心业务数据就ok.
+							this.message = endChar + startChar;
+						},300);	
+					}
+					
+				},
+				stop:function(){
+					console.log('stop');
+					clearInterval(this.intervalId);
+					this.intervalId = null;
+				}
+			}
+		})
+	</script>
+</body>
+</html>
