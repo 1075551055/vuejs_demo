@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>vue中style样式使用</title>
+	<link rel="stylesheet" href="">
+	<script src="lib/vue-2.4.0.js"></script>
+</head>
+<body>
+	<div id="app">
+		<!-- style就是一个json格式字符串 -->
+		<span v-bind:style="myStyle1">hello</span>
+
+		<span :style="[myStyle1,myStyle2]">hello</span>
+	</div>
+	<script type="text/javascript">
+		var app = new Vue({
+			el: '#app',
+			data: {
+				myStyle1:{'color':'red', 'font-size':'30px'},
+				myStyle2:{'font-style':'italic'}
+			}
+		})
+	</script>
+</body>
+</html>
