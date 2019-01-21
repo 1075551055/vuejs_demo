@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>列表增删</title>
+	<link rel="stylesheet" href="">
+	<script src="../lib/vue-2.4.0.js"></script>
+	<style type="text/css" media="screen">
+		table{
+			margin-top: 30px;
+		}
+		th, td{
+			border: 1px solid #ccc;
+		}
+	</style>
+</head>
+<body>
+	<div id="app">
+		<form action="" method="get" accept-charset="utf-8">
+			<!-- 双向数据绑定 -->
+			<label>id:<input type="text" name="" v-model:value="id" placeholder="id" ></label>
+			<label>name:<input type="text" name="" v-model:value="name" placeholder="name"></label>
+			<input type="button" name="" value="添加" @click="add">
+			<label>搜索：<input type="text" name="" v-model:value="keyWord"></label>
+			<!-- foreach -->
+			<table>
+				<caption></caption>
+				<thead>
+					<tr>
+						<th>id</th>
+						<th>name</th>
+						<th>create time</th>
+						<th>option</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr v-for="item in search(keyWord)" v-bind:key="item.id">
+						<td>{{item.id}}</td>
+						<td>{{item.name}}</td>
+						<td>{{item.createTime}}</td>
+						<td>
+							<a href="#" @click="del(item.id)">删除</a>
+							<a href="#">修改</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
+	</div>
+	<script type="text/javascript">
+		// view model
+		var app = new Vue({
+			// view
+			el: "#app",
+			// model
+			data: {
+				id:"",
+				name:"",
+				keyWord: "",
+				userInfos: [
+					{"id": 1, "name":"zs", "createTime": new Date()},
+					{"id": 2, "name":"ls", "createTime": new Date()}
+				]
+			},
+			methods:{
+				add: function(){
+					this.userInfos.push({id: this.id, name: this.name, createTime: new Date()});
+					
+				},
+				del: function(itemId){
+					var index = this.userInfos.findIndex(item => item.id === itemId);
+					this.userInfos.splice(index, 1);
+				},
+				search: function(keyWord){
+					return this.userInfos.filter(item => item.name.includes(keyWord));
+				}
+			}
+		});
+	</script>
+</body>
+</html>
