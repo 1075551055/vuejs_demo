@@ -35,6 +35,7 @@
 					</tr>
 				</thead>
 				<tbody>
+					<!-- keyword的变动会触发所有使用它的地方 -->
 					<tr v-for="item in search(keyWord)" v-bind:key="item.id">
 						<td>{{item.id}}</td>
 						<td>{{item.name}}</td>

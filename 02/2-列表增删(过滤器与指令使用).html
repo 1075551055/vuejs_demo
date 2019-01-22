@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>列表增删</title>
+	<link rel="stylesheet" href="">
+	<script src="../lib/vue-2.4.0.js"></script>
+	<script src="../lib/moment.js"></script>
+	<style type="text/css" media="screen">
+		table{
+			margin-top: 30px;
+		}
+		th, td{
+			border: 1px solid #ccc;
+		}
+	</style>
+</head>
+<body>
+	<div id="app">
+		<form action="" method="get" accept-charset="utf-8">
+			<!-- 双向数据绑定 -->
+			<label>id:<input type="text" name="" v-model:value="id" placeholder="id" v-color v-fontsize="19"></label>
+			<label>name:<input type="text" name="" v-model:value="name" placeholder="name"></label>
+			<input type="button" name="" value="添加" @click="add">
+			<label>搜索：<input type="text" name="" v-model:value="keyWord" v-focus></label>
+			<!-- foreach -->
+			<table>
+				<caption></caption>
+				<thead>
+					<tr>
+						<th>id</th>
+						<th>name</th>
+						<th>create time</th>
+						<th>option</th>
+					</tr>
+				</thead>
+				<tbody>
+					<!-- keyword的变动会触发所有使用它的地方 -->
+					<tr v-for="item in search(keyWord)" v-bind:key="item.id">
+						<td>{{item.id}}</td>
+						<td>{{item.name}}</td>
+						<!-- 通过管道符号|对时间进行过滤器处理 -->
+						<td>{{item.createTime | dateFormat}}</td>
+						<td>
+							<a href="#" @click="del(item.id)">删除</a>
+							<a href="#">修改</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
+	</div>
+	<script type="text/javascript">
+		// 1. 过滤器 全局
+		// 使用过滤器处理时间。下面这种是全局过滤器，所有Vue实例都可以使用，共享的
+		// 第一个参数是过滤器名称，第二个参数是一个处理函数，处理函数的第一个参数规定死了，就是管道符号前面的值，之后的参数可以自行定义，在使用的时候可以传参
+		Vue.filter("dateFormat", function(dateStr, pattern = 'MMMM Do YYYY, h:mm:ss a'){
+			return moment(dateStr).format(pattern);
+		});
+
+		// 2. 指令 全局
+		// 第一个参数是指令名称，在使用的时候需要在名称前面加上v-;第二参数是一个json对象，包括三个事件bind, inserted, updated，每个事件都有一个el参数，该参数表示使用该指令的dom元素
+		Vue.directive('focus',{
+			// 当指令绑定到元素的时候触发
+			bind: function(el){
+
+			},
+			// 当dom元素插入到dom树的时候触发，所以focus事件在这里进行处理
+			inserted: function(el){
+				el.focus();
+			},
+			updated: function(el){
+
+			}
+
+		});
+
+		// 绑定属性的时候赋予元素红色
+		Vue.directive('color', {
+			bind: function(el){
+				el.style.color = "red";
+			}
+		});
+
+		// view model
+		var app = new Vue({
+			// view
+			el: "#app",
+			// model
+			data: {
+				id:"",
+				name:"",
+				keyWord: "",
+				userInfos: [
+					{"id": 1, "name":"zs", "createTime": new Date()},
+					{"id": 2, "name":"ls", "createTime": new Date()}
+				]
+			},
+			methods:{
+				add: function(){
+					this.userInfos.push({id: this.id, name: this.name, createTime: new Date()});
+					
+				},
+				del: function(itemId){
+					var index = this.userInfos.findIndex(item => item.id === itemId);
+					this.userInfos.splice(index, 1);
+				},
+				search: function(keyWord){
+					return this.userInfos.filter(item => item.name.includes(keyWord));
+				}
+			},
+			// 自定义私有过滤器，就是当前Vue实例所有. 如果私有过滤器与全局过滤器同名，则私有覆盖全局的
+			filters:{
+				dateFormat: function(dateStr, pattern = 'MMM Do YY'){
+					return moment(dateStr).format(pattern);
+				}
+			},
+			// 局部指令定义
+			directives:{
+				'fontsize': {
+					// 通过第二参数进行值得传递
+					bind: function(el, binding){
+						el.style.fontSize =  parseInt(binding.value) + 'px';
+					}
+				}
+			}
+		});
+	</script>
+</body>
+</html>
