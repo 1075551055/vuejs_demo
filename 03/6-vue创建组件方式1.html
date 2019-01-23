@@ -10,7 +10,7 @@
 		<component-test></component-test>
 	</div>
 	<script>
-		// 全局定义组件，第一个参数是名称，如果使用了驼峰命名那么在使用的时候需要变成小写，中间用-进行连接。template就是组件要显示的内容
+		// 全局定义组件，第一个参数是名称，如果使用了驼峰命名那么在使用的时候需要变成小写，中间用-进行连接。template就是组件要显示的内容，必须只能有却仅有一个根元素。使用不使用Vue.extend都ok
 		Vue.component("componentTest", Vue.extend({
 			template: "<a href='#'>点击我</a>"
 		}))
