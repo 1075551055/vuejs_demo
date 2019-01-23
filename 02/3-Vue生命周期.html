@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Vue生命周期</title>
+	<link rel="stylesheet" href="">
+	<script src="../lib/vue-2.4.0.js"></script>
+</head>
+<body>
+	
+	<div id="app">
+		<input type="button" name="" value="改变msg" @click="changeMsg">
+		<div id="sub">{{msg}}</div>
+	</div>
+
+	<script type="text/javascript">
+		
+		var app = new Vue({
+			el: "#app",
+			data: {
+				msg: "hello Vue"
+			},
+			methods:{
+				changeMsg: function(){
+					this.msg = "hello world";
+				}
+			},
+			// 生命周期的第一个函数，在这个函数中data和methods都还没有实例化出来
+			beforeCreate:function(){
+				// 这里是取不到msg的
+				// console.log(this.msg);
+			},
+			// 生命周期的第二个函数，在这个函数中data和methods都已经实例化出来了，最早能使用data和methods的也就是这个函数了
+			created: function(){
+				console.log(this.msg);
+			},
+			// 生命周期的第三个函数，模板已经存在内存中了，就是还没有真正被替换成数据渲染到页面中
+			beforeMount: function(){
+				// 打印出{{msg}}
+				console.log(document.getElementById('sub').innerText);
+			},
+			// 生命周期第四个函数，模板已经被真正的数据替换，已经挂载到页面中，用户可以看得到渲染出来的页面
+			mounted: function(){
+				// 打印出hello Vue
+				console.log(document.getElementById('sub').innerText);
+			},
+			// 接下来的两个事件是当数据有更新的时候便会触发。
+			// 这个事件中数据已经在内存中更新了，但是ui上渲染的数据还是旧数据，并没有和内存中的数据进行同步
+			beforeUpdate: function(){
+				// 打印出来hello world
+				console.log(this.msg);
+			},
+			// 这个生命周期函数中，内存与ui的数据已经同步了，ui上看到的就是最新的数据
+			updated: function(){
+				console.log(this.msg);
+			}
+		});
+
+	</script>
+</body>
+</html>

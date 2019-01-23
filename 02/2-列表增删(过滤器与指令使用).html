@@ -21,7 +21,7 @@
 		<form action="" method="get" accept-charset="utf-8">
 			<!-- 双向数据绑定 -->
 			<label>id:<input type="text" name="" v-model:value="id" placeholder="id" v-color v-fontsize="19"></label>
-			<label>name:<input type="text" name="" v-model:value="name" placeholder="name"></label>
+			<label>name:<input type="text" name="" v-model:value="name" placeholder="name" @keyup.myenter="keyUpTest"></label>
 			<input type="button" name="" value="添加" @click="add">
 			<label>搜索：<input type="text" name="" v-model:value="keyWord" v-focus></label>
 			<!-- foreach -->
@@ -52,6 +52,10 @@
 		</form>
 	</div>
 	<script type="text/javascript">
+
+		// 自定义键盘事件，这里是定义enter键事件，调用的时候使用@keyup.myenter
+		Vue.config.keyCodes.myenter=13;
+
 		// 1. 过滤器 全局
 		// 使用过滤器处理时间。下面这种是全局过滤器，所有Vue实例都可以使用，共享的
 		// 第一个参数是过滤器名称，第二个参数是一个处理函数，处理函数的第一个参数规定死了，就是管道符号前面的值，之后的参数可以自行定义，在使用的时候可以传参
@@ -108,6 +112,9 @@
 				},
 				search: function(keyWord){
 					return this.userInfos.filter(item => item.name.includes(keyWord));
+				},
+				keyUpTest(){
+					alert("test");
 				}
 			},
 			// 自定义私有过滤器，就是当前Vue实例所有. 如果私有过滤器与全局过滤器同名，则私有覆盖全局的
