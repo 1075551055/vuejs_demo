@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="../lib/vue-2.4.0.js"></script>
+</head>
+<body>
+	<div id="app">
+		<component-test></component-test>
+	</div>
+	<script>
+		// 全局定义组件，第一个参数是名称，如果使用了驼峰命名那么在使用的时候需要变成小写，中间用-进行连接。template就是组件要显示的内容
+		Vue.component("componentTest", Vue.extend({
+			template: "<a href='#'>点击我</a>"
+		}))
+		var app = new Vue({
+			el:"#app",
+			data:{
+
+			}
+		})
+	</script>
+</body>
+</html>
