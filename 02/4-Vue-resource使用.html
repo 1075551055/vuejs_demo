@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>vue-resource使用</title>
+	<script src="../lib/vue-2.4.0.js"></script>
+	<!-- 注意：vue-resource 依赖于 Vue，所以先后顺序要注意  -->
+	<script src="../lib/vue-resource-1.3.4.js"></script>
+</head>
+<body>
+	
+	<div id="app">
+		<input type="button" value="get请求" @click="getMethod">
+		<input type="button" value="post请求" @click="postMethod">
+		<input type="button" value="jsonP请求" @click="jsonpMethod">
+	</div>
+	<script>
+		var app = new Vue({
+			el: "#app",
+			data:{
+
+			},
+			methods:{
+				getMethod(){
+					// 只为了演示，这里并不能发送成功，因为存在了跨域问题
+					this.$http.get("http://baidu.com", function(result){
+						console.log(result.body);
+					})
+				},
+
+				postMethod(){
+					// 第二个参数是要提交的数据，第三个参数则是设置提交的数据格式，这里设置为json格式(普通的表单格式)
+					this.$http.post("http://baidu.com",{},{emulateJSON:true}, function(result){
+						console.log(result.body);
+					})
+				},
+
+				jsonpMethod(){
+					this.$http.jsonp("http://baidu.com", function(result){
+						console.log(result.body);
+					})
+				}
+			}
+		})
+	</script>
+</body>
+</html>
