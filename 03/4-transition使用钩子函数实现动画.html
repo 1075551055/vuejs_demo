@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>transition使用钩子函数实现动画</title>
+	<script src="../lib/vue-2.4.0.js"></script>
+	<style>
+		.ball{
+			width: 100px;
+			height: 100px;
+			background-color: pink;
+			border-radius: 50px;
+		}
+
+	</style>
+</head>
+<body>
+	
+	<div id="app">
+		<input type="button" value="显示/隐藏" @click="flag=!flag">
+		<!-- 通过设置生命周期的三个函数实现动画 -->
+		<transition @before-enter="beforeEnter" @enter="enter" @after-enter="afterEnter">	
+			<div class="ball" v-show="flag">
+			</div>
+		</transition>
+		
+	</div>
+	<script type="text/javascript">
+		var app = new Vue({
+			el: "#app",
+			data:{
+				flag: false
+			},
+			methods:{
+				// 动画进场前的钩子函数，可以在此设置元素的最初位置，其中el就是该动画元素，dom元素
+				beforeEnter(el){
+					el.style.transform = "translate(0,0)";
+				},
+				// 动画进场过程中的钩子函数，可以在此设置最终的位置以及过渡效果
+				enter(el,done){
+					// 为了让dom元素重新计算宽度，强制刷新动画，用offsetHeight一样可以
+					el.offsetWidth;
+					el.style.transform = "translate(100px, 300px)";
+					el.style.transition = "all 0.5s ease";
+					// done代表afterEnter,必须触发它
+					done();
+				},
+				afterEnter(el){
+					// 重置
+					this.flag = !this.flag;
+					console.log("afterEnter")
+				}
+			}
+		})
+	</script>
+</body>
+</html>
