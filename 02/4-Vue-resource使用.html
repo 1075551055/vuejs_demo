@@ -21,22 +21,30 @@
 
 			},
 			methods:{
+				// 如果在每一个请求中都不想添加http://baidu.com/，那么可以进行全局配置：Vue.http.options.root = http://baidu.com/，在进行异步请求的url中就能简写成getUser,postUser,jsonpUser，vue会自动进行拼接,注意应以相对路径开头，不要写成/getUser
 				getMethod(){
 					// 只为了演示，这里并不能发送成功，因为存在了跨域问题
-					this.$http.get("http://baidu.com", function(result){
+					this.$http.get("http://baidu.com/getUser", function(result){
+						// status为0则表示成功
+						if(result.status == 0){
+							console.log(result.body);
+						}
+					})
+					// promise的写法，post以及jsonp方法都可以使用。通过then制定回调函数
+					this.$http.get("http://baidu.com/getUser").then(result => {
 						console.log(result.body);
 					})
 				},
 
 				postMethod(){
-					// 第二个参数是要提交的数据，第三个参数则是设置提交的数据格式，这里设置为json格式(普通的表单格式)
-					this.$http.post("http://baidu.com",{},{emulateJSON:true}, function(result){
+					// 第二个参数是要提交的数据，第三个参数则是设置提交的数据格式，这里设置为json格式(普通的表单格式)，当然第三个参数可以通过全局的配置：Vue.http.options.emulateJSON = true
+					this.$http.post("http://baidu.com/postUser",{},{emulateJSON:true}, function(result){
 						console.log(result.body);
 					})
 				},
 
 				jsonpMethod(){
-					this.$http.jsonp("http://baidu.com", function(result){
+					this.$http.jsonp("http://baidu.com/jsonpUser", function(result){
 						console.log(result.body);
 					})
 				}
