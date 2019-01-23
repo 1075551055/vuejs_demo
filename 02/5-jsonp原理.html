@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jsonp原理</title>
+</head>
+<body>
+	
+	<script type="text/javascript">
+		function show(data){
+			// 对data进行相关业务处理
+		}
+	</script>
+	<script type="text/javascript" src="http://localhost/getScript?callback=show">
+		// 通过script标签进行跨域的资源访问，这里的目的是为了拿到show方法的调用，其实后端会返回类似以下结构的内容<script>show(data)<script>，由于上面我们已经定义了一个show方法，那么jsonp返回的就是该方法的调用，这样就能触发了相关的业务逻辑处理
+	</script>
+</body>
+</html>
