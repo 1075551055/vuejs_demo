@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="../lib/vue-2.4.0.js"></script>
+	<style>
+		.v-enter,
+		.v-leave-to{
+			/*加上透明度设置效果更佳*/
+			opacity: 0;
+			transform: translateX(150px);
+		}
+
+		.v-enter-active,
+		.v-leave-active{
+			transition: all 1s ease;
+		}
+	</style>
+</head>
+<body>
+	<div id="app">
+		<a href="" @click.prevent="comName='login'">登录</a>	
+		<a href="" @click.prevent="comName='register'">注册</a>	
+		<!-- 使用out-in模式可以让动画先离场后进场，假如没有使用该模式会看到一个离场元素和一个进场元素 -->
+		<transition mode="out-in">
+			<component :is="comName"> </component>
+		</transition>
+	</div>
+
+	<script type="text/javascript">
+		Vue.component('login',{
+			template:"<h3>登录组件</h3>"
+		});
+
+		Vue.component('register',Vue.extend({
+			template:"<h3>注册组件</h3>"
+		}));
+
+		var vm = new Vue({
+			el:"#app",
+			data:{
+				comName:"login"
+			},
+			methods:{
+
+			}
+		})
+	</script>
+</body>
+</html>
