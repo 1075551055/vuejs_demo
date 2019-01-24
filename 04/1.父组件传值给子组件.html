@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="../lib/vue-2.4.0.js"></script>
+</head>
+<body>
+	<div id="app">
+		<!-- 通过v-bind绑定属性，向子组件传值 -->
+		<mycom v-bind:parentmsg="msg"></mycom>
+	</div>
+
+	<script type="text/javascript">
+		var app = new Vue({
+			el:"#app",
+			data:{
+				msg: "父"
+			},
+			components:{
+				mycom:{
+					// 默认情况下子组件是无法访问父元素data中的数据的，需要父元素通过v-bind绑定属性进行传值，那么需要在子组件中定义一个props属性，用来接收父元素传递的属性，它是一个数组.注意父元素传递过来的属性最终都会转成小写的，那么声明props的时候都得小写
+					template:"<a href='' @click.prevent='change'>父元素传递过来的值为：{{parentmsg}}</a>",
+					// props中的属性都是只读的，不能更改
+					props:['parentmsg'],
+					methods:{
+						change(){
+							// 这里的this是当前component, 它身上挂载了父元素传递过来的属性 
+							this.parentmsg = "hello";
+							// console.log(this.parentmsg);
+						}
+					}
+				}
+			}
+		})
+	</script>
+</body>
+</html>
