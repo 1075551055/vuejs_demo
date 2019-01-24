@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="../lib/vue-2.4.0.js"></script>
+</head>
+<body>
+	<div id="app">
+		<a href="" @click.prevent="getDom">通过ref获取普通dom元素</a>
+		<a href="" @click.prevent="getCom">通过ref获取组件</a>
+		<div ref="div1">div1 innerText</div>
+		
+
+		<mycom ref="myComRef"></mycom>
+		
+	</div>
+	<script type="text/javascript">
+		Vue.component("mycom",{
+			template:"<h3>my component</h3>",
+			methods:{
+				show(){
+					console.log("my component show");
+				}
+			}
+		});
+		var app = new Vue({
+			el:"#app",
+			methods:{
+				getDom(){
+					// 通过$refs获取相对应的dom元素，相对应的元素需要设置ref属性
+					console.log(this.$refs.div1.innerText);
+				},
+				getCom(){
+					// 调用组件方法
+					this.$refs.myComRef.show();
+				}
+			}
+		})
+	</script>
+</body>
+</html>
