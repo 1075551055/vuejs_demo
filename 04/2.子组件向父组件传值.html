@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="../lib/vue-2.4.0.js"></script>
+</head>
+<body>
+	<div id="app">
+		<!-- 可以通过v-on(v-on:func =>简写@func)绑定事件，向子组件传递一个函数，这样子组件就能调用该函数，然后进行数据的传递，类似回调 -->
+		<mycom v-on:func="show"></mycom>
+	</div>
+
+	<template id="mycom">
+		<a href="" @click.prevent="childClick">我的自定义子组件</a>
+	</template>
+	<script type="text/javascript">
+		var app = new Vue({
+			el:"#app",
+			data:{
+				msg : ""
+			},
+			methods:{
+				show(childMsg){
+					this.msg = childMsg;
+					console.log(this.msg);
+				}
+			},
+			components:{
+				mycom:{
+					template:"#mycom",
+					data(){
+						return {
+							childMsg: "子元素msg"
+						}
+					},
+					methods:{
+						childClick(){
+							// 触发父元素func事件，第二参数是给这个事件传递数据
+							this.$emit("func", this.childMsg);
+						}
+					}
+				}
+			}
+		})
+	</script>
+</body>
+</html>
