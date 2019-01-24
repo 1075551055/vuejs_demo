@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>vue创建组件方式2-局部创建</title>
+	<link rel="stylesheet" href="">
+	<script src="../lib/vue-2.4.0.js"></script>
+</head>
+<body>
+	
+	<div id="app">
+		<my-link></my-link>
+		
+	</div>
+
+	<!-- 定义一个带有id的template(不要在id=app元素中定义)，方便局部创建组件引用 -->
+	<template id="myTemplate">
+		<a href="#">局部自定义组件</a>
+	</template>
+
+	<script type="text/javascript">
+		// 创建 Vue 实例，得到 ViewModel
+		var app = new Vue({
+			el: '#app',
+			data: {},
+			methods: {},
+			components:{
+				// 组件名称
+				myLink:{
+					// 组件对应的template
+					template:"#myTemplate"
+				}
+			}
+		});
+
+	</script>
+</body>
+</html>
