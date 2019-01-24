@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>vue中组件的data和methods</title>
+	<link rel="stylesheet" href="">
+	<script src="../lib/vue-2.4.0.js"></script>
+</head>
+<body>
+	<div id="app">
+		<mycomonent></mycomonent>
+		<mycomonent></mycomonent>
+	</div>
+	<template id="mytem">
+		<!-- 必须只有一个根元素，其实组件也相当于一个vue实例了 -->
+		<div>
+			<input type="button" name="" value="+1" @click="increasement">
+			<h1>{{count}}</h1>
+		</div>
+		
+	</template>
+	<script type="text/javascript">
+		var countObj = {count: 0};
+		Vue.component("mycomonent",{
+			template: "#mytem",
+			// 组件中的data和Vue中的data不一样，这里必须是一个function，并且有返回值，并不是一个obj. 在.vue文件中定义data的道理也是一样的。为什么必须是一个由返回值得function呢？ 1.首先要明确一点json对象是一个引用对象，在堆中，所有组件实例会共享，我猜是不是与原型中定义的json对象会被所有实例对象共享是同一个道理，所以像Vue实例一样如果data是一个对象，那么容易被不同组件实例之间污染了；2.data为一个函数的话，每次调用该函数都会通过return返回对象的拷贝，组件实例之间不会出现数据污染的情况
+			data:function(){
+				// 每次都会返回一个json对象的拷贝，不会出现数据污染情况
+				// return {
+				// 	count: 0
+				// }
+
+				// 公享了同一个json对象，会有数据污染的情况
+				return countObj;
+			},
+			methods:{
+				increasement(){
+					this.count++;
+				}
+			}
+		})
+		var app = new Vue({
+			el: '#app',
+			data: {}
+		})
+	</script>
+</body>
+</html>
