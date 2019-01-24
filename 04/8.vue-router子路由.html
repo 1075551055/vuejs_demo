@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="../lib/vue-2.4.0.js"></script>
+	<script src="../lib/vue-router-3.0.1.js"></script>
+</head>
+<body>
+	<div id="app">
+		<router-link to="/account">用户组件</router-link>
+		<router-view></router-view>
+	</div>
+
+	<template id="temp1">
+		<div>
+			<h3>用户组件</h3>
+			<router-link to="/account/login">登录</router-link>
+			<router-link to="/account/register">注册</router-link>
+			<router-view></router-view>
+		</div>
+	</template>
+	<script type="text/javascript">
+
+		var account = {
+			template: "#temp1"
+		}
+
+		var login = {
+			template: '<h3>登录</h3>'
+		}
+
+		var register = {
+			template: '<h3>注册</h3>'
+		}
+
+		var router = new VueRouter({
+			routes:[
+			{
+				path:"/account", 
+				component: account,
+				children:[
+					// 注意：不需要在子路由中加上/，这是绝对路径
+					{ path: 'login', component: login },
+					{ path: 'register', component: register }
+				]
+			}
+			]
+		})
+		var app = new Vue({
+			el:"#app",
+			// es6中如果obj的key和value同名，则可以省略value
+			router
+		})
+	</script>
+</body>
+</html>
