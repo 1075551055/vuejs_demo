@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="">
+	<script src="../lib/vue-2.4.0.js"></script>
+</head>
+<body>
+	<div id="app">
+		<!-- 传统dom事件实现文本框的监听，获取fullName -->
+		<input type="text" name="" v-model:value="firstName" placeholder="" @keyup="getFullName">
+		<input type="text" name="" v-model:value="lastName" placeholder="" @keyup="getFullName">
+		<input type="text" name="" v-model:value="fullName" placeholder="">
+	</div>
+	<script type="text/javascript">
+		var app = new Vue({
+			el:"#app",
+			data:{
+				firstName:"",
+				lastName:"",
+				fullName:""
+			},
+			methods:{
+				getFullName(){
+					this.fullName = this.firstName + this.lastName;
+				}
+			}
+		})
+	</script>
+</body>
+</html>

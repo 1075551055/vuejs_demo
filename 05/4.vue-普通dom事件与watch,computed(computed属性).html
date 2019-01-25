@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title></title>
+  <link rel="stylesheet" href="">
+  <script src="../lib/vue-2.4.0.js"></script>
+</head>
+<body>
+  <div id="app">
+    <input type="text" name="" v-model:value="firstName" placeholder="">
+    <input type="text" name="" v-model:value="lastName" placeholder="">
+    <input type="text" name="" v-model:value="myfullname" placeholder="">
+    <h1>{{myfullname}}</h1>
+  </div>
+  <script type="text/javascript">
+    var app = new Vue({
+      el:"#app",
+      data:{
+        firstName:"",
+        lastName:""
+        // 注意：被computed的属性不能出现在data中
+        // fullName:""
+      },
+      methods:{
+        // getFullName(){
+        //  this.fullName = this.firstName + this.lastName;
+        // }
+      },
+      // computed是一个计算属性，会把需要计算的属性当成是一个函数，当函数体中用到的数据有变化的时候触发对应函数，它会缓存数据，如果数据没有变化则不会重新计算
+      computed:{
+        "myfullname":function(){
+          // 错误用法，myfullname是一个函数，这里又重新赋值了
+           // this.myfullname = this.firstName + this.lastName;
+           console.log("test");
+           return this.firstName + this.lastName;
+        }
+      }
+    })
+  </script>
+</body>
+</html>

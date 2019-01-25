@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="">
+	<script src="../lib/vue-2.4.0.js"></script>
+</head>
+<body>
+	<div id="app">
+		<input type="text" name="" v-model:value="firstName" placeholder="">
+		<input type="text" name="" v-model:value="lastName" placeholder="">
+		<input type="text" name="" v-model:value="fullName" placeholder="">
+	</div>
+	<script type="text/javascript">
+		var app = new Vue({
+			el:"#app",
+			data:{
+				firstName:"",
+				lastName:"",
+				fullName:""
+			},
+			methods:{
+				// getFullName(){
+				// 	this.fullName = this.firstName + this.lastName;
+				// }
+			},
+			// 通过watch可以监听Vue实例中的数据的变化，然后触发对应的函数
+			watch:{
+				"firstName":function(newVal, oldVal){
+					console.log("111")
+					this.fullName = newVal + this.lastName;
+				},
+				"lastName":function(newVal,oldVal){
+					this.fullName = this.firstName + newVal;
+				}
+			}
+		})
+	</script>
+</body>
+</html>
